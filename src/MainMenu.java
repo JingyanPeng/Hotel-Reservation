@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
 public class MainMenu {
 
     public static void displayMainMenuOptions(){
-        /** To display the main menu for user to choose.
-         */
+        // To display the main menu for user to choose.
         System.out.println("Welcome to the Hotel Reservation Application");
         System.out.println("_____________________Main Menu______________________");
         System.out.println("1. Find and reserve a room");                               // done
@@ -26,28 +25,18 @@ public class MainMenu {
     }
 
     public static boolean mainOptions(Scanner scanner, Integer selection){
-        /** To control the main menu options.
-         */
+        // To control the main menu options.
         boolean keepRunning = true;
-        switch (selection){
-            case 1:
-                findAndReserveARoom(scanner);
-                break;
-            case 2:
-                seeMyReservations(scanner);
-                break;
-            case 3:
-                createAnAccount(scanner);
-                break;
-            case 4:
-                runAdminMenu(scanner);
-                break;
-            case 5:
+        switch (selection) {
+            case 1 -> findAndReserveARoom(scanner);
+            case 2 -> seeMyReservations(scanner);
+            case 3 -> createAnAccount(scanner);
+            case 4 -> runAdminMenu(scanner);
+            case 5 -> {
                 System.out.println("You have exited the system");
                 keepRunning = false;
-                break;
-            default:
-                System.out.println("__Please enter a number between 1 and 5__");
+            }
+            default -> System.out.println("__Please enter a number between 1 and 5__");
         }
         return keepRunning;
     }
@@ -81,7 +70,7 @@ public class MainMenu {
 
 
     private static void findAndReserveARoom(Scanner scanner){
-        /**
+        /*
          * 1)checkInDate -> RegEx check the date pattern
          * 2)checkOutDate
          * 3)bookARoom
@@ -120,21 +109,26 @@ public class MainMenu {
             for(IRoom room : roomList){
                 System.out.println(room.toString());
             }
-            System.out.println("Do you have an account with us? y/n");
-            try{
-                String yORn = scanner.nextLine();
-                checkYesOrNoValid(yORn);
-                if (yORn.equalsIgnoreCase("y") || yORn.equalsIgnoreCase("yes")){
-                    makeAReservation(scanner, roomList, inDate, outDate);
-                } else if (yORn.equalsIgnoreCase("n") || yORn.equalsIgnoreCase("no")) {
-                    System.out.println("Please create an account with us");
+            boolean keepBooking = true;
+            while (keepBooking){
+                System.out.println("Do you have an account with us? y/n");
+                try{
+                    String yORn = scanner.nextLine();
+                    checkYesOrNoValid(yORn);
+                    if (yORn.equalsIgnoreCase("y") || yORn.equalsIgnoreCase("yes")){
+                        makeAReservation(scanner, roomList, inDate, outDate);
+                        keepBooking = false;
+                    } else if (yORn.equalsIgnoreCase("n") || yORn.equalsIgnoreCase("no")) {
+                        System.out.println("Please create an account with us first");
+                        keepBooking = false;
+                    } else {
+                        keepBooking = true;
+                    }
+                }catch (InputMismatchException ex){
+                    System.out.println(ex.getLocalizedMessage());
                 }
-            }catch (InputMismatchException ex){
-                System.out.println(ex.getLocalizedMessage());
             }
         }
-
-
 
     }
 
@@ -164,7 +158,7 @@ public class MainMenu {
                 if (iterator.next().getRoomNumber().equals(roomNumber)){
                     validRoomNumber = true;
                     break;
-                };
+                }
                 if(!iterator.hasNext()){
                     System.out.println("__Please choose the available room__");
                 }
@@ -187,10 +181,7 @@ public class MainMenu {
     }
 
     private static void seeMyReservations(Scanner scanner){
-        /**
-         * email -> check format -> exist
-         */
-        //System.out.println("see my reservations");
+        //email -> check format -> exist？
         boolean validEmail = false;
         String email;
         while(!validEmail){
@@ -204,9 +195,8 @@ public class MainMenu {
                 System.out.println("__That email doesn't exist__");
             } else{
                 validEmail = true;
-                Iterator<Reservation> iterator = myReservations.iterator();
-                while(iterator.hasNext()){
-                    System.out.println(iterator.next());
+                for (Reservation myReservation : myReservations) {
+                    System.out.println(myReservation);
                 }
                 if (myReservations.isEmpty()){
                     System.out.println("You don't have any reservations");
@@ -215,7 +205,7 @@ public class MainMenu {
         }
     }
     private static void createAnAccount(Scanner scanner){
-        /**
+        /*
          * 1)email -> RegEx check the email pattern -> not exist
          * 2)firstname
          * 3)lastname

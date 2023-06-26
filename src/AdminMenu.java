@@ -33,27 +33,14 @@ public class AdminMenu {
      */
     public static boolean adminOptions(Scanner scanner, Integer selection){
         boolean keepRunningAdmin = true;
-        switch (selection){
-            case 1:
-                seeAllCustomers();
-                break;
-            case 2:
-                seeAllRooms();
-                break;
-            case 3:
-                seeAllReservations();
-                break;
-            case 4:
-                addRooms(scanner);
-                break;
-            case 5:
-                keepRunningAdmin = false;
-                break;
-            case 6:
-                addTestData();
-                break;
-            default:
-                System.out.println("__Please enter a number between 1 and 6__");
+        switch (selection) {
+            case 1 -> seeAllCustomers();
+            case 2 -> seeAllRooms();
+            case 3 -> seeAllReservations();
+            case 4 -> addRooms(scanner);
+            case 5 -> keepRunningAdmin = false;
+            case 6 -> addTestData();
+            default -> System.out.println("__Please enter a number between 1 and 6__");
         }
         return keepRunningAdmin;
     }
@@ -98,10 +85,7 @@ public class AdminMenu {
         System.out.println();
     }
 
-    /**
-     * Check the valid input
-     * @param string
-     */
+    //Check the valid input
     private static void checkYesOrNoValid(String string){
         if(!( string.equalsIgnoreCase("y") || string.equalsIgnoreCase("n") || string.equalsIgnoreCase("yes") || string.equalsIgnoreCase("no"))){
             throw new InputMismatchException("__Please enter y (Yes) or n (No)__");
@@ -142,7 +126,7 @@ public class AdminMenu {
 
 
     private static void addRoom(Scanner scanner){
-        /**
+        /*
          * 1)roomNumber -> 3-digit-number -> not exist
          * 2)roomPrice -> positive
          * 3)roomType -> 1 or 2
@@ -244,14 +228,6 @@ public class AdminMenu {
         System.out.println("You have added some customers, rooms and reservations record.");
 
     }
-
-//    /**
-//     * 4.   Update A Room
-//     *      update the existing room, apply it to all the existing reservation(think About it, refine it)
-//     */
-//    private static void updateRoom(String roomNumber, Scanner scanner){
-//
-//    }
 
 
 }

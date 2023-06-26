@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf6f9d7-96cf-468f-972e-d52c1af50627" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AdminMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/HotelReservationApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MainMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/AdminResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/HotelResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/FreeRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/IRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Reservation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Room.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/RoomType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Tester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/ReservationService.java" afterDir="false" />
+    <list default="true" id="baf6f9d7-96cf-468f-972e-d52c1af50627" name="Changes" comment="Menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AdminMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="false" />
@@ -74,6 +62,14 @@
       <option name="presentableId" value="Default" />
       <updated>1687052062971</updated>
     </task>
+    <task id="LOCAL-00001" summary="add test data">
+      <created>1687737240463</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1687737240463</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -86,5 +82,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add test data" />
+    <MESSAGE value="Menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Menu" />
   </component>
 </project>

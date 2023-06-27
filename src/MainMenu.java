@@ -204,6 +204,7 @@ public class MainMenu {
             }
         }
     }
+
     private static void createAnAccount(Scanner scanner){
         /*
          * 1)email -> RegEx check the email pattern -> not exist

@@ -17,8 +17,8 @@ public class ReservationService {
     public List<Reservation> getReservations(){
         return reservations;
     }
-    private List<IRoom> rooms = new ArrayList<IRoom>();
-    public List<IRoom> getRooms(){
+    private Set<IRoom> rooms = new HashSet<IRoom>();
+    public Set<IRoom> getRooms(){
         return rooms;
     }
 

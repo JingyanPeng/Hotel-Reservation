@@ -1,8 +1,19 @@
 package model;
 
 public interface IRoom {
-    public String getRoomNumber();
-    public double getRoomPrice();
-    public RoomType getRoomType();
-    public boolean isFree();
+    default String getRoomNumber() {
+        return null;
+    }
+
+    default double getRoomPrice() {
+        return 0;
+    }
+
+    default RoomType getRoomType() {
+        return null;
+    }
+
+    default boolean isFree() {
+        return false;
+    }
 }

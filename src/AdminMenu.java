@@ -197,13 +197,17 @@ public class AdminMenu {
         AdminResource.getInstance().addRoom(newRoom);
     }
 
-    private static void addTestData() {
+    private static boolean addTestData() {
+        if (AdminResource.getInstance().getCustomer("j@gmail.com") != null){
+            System.out.println("You have added some customers, rooms and reservations records. Please do not add records twice.");
+            return false;
+        }
         AdminResource.getInstance().addRoom(new Room("100", 135.0, RoomType.SINGLE));
         AdminResource.getInstance().addRoom(new Room("200", 125.0, RoomType.DOUBLE));
         AdminResource.getInstance().addRoom(new Room("300", 150.0, RoomType.SINGLE));
         AdminResource.getInstance().addRoom(new Room("400", 125.0, RoomType.DOUBLE));
 
-        HotelResource.getInstance().createACustomer("j@gmail.com", "jenny", "jo");
+        HotelResource.getInstance().createACustomer("j@gmail.com", "jenny", "floyd");
         HotelResource.getInstance().createACustomer("k@gmail.com", "katrina", "kai");
         HotelResource.getInstance().createACustomer("h@gmail.com", "hana", "potter");
 
@@ -225,8 +229,8 @@ public class AdminMenu {
         IRoom room2 = HotelResource.getInstance().getRoom("200");
         HotelResource.getInstance().BookARoom("h@gmail.com", room2, checkInDate.getTime(), checkOutDate.getTime());
 
-        System.out.println("You have added some customers, rooms and reservations record.");
-
+        System.out.println("You have added some customers, rooms and reservations records.");
+        return true;
     }
 
 

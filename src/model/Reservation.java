@@ -52,11 +52,11 @@ public class Reservation {
     @Override
     public String toString() {
         SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
-        return "Reservation{\n" +
-                customer + "\n" +
-                room + "\n" +
-                "CheckIn Date: " + myFormat.format(checkInDate) + "\n" +
-                "CheckOut Date: " + myFormat.format(checkOutDate) + "}";
+        return "Reservation\n" +
+                "{\n" + customer + "\n" +
+                " " + room + "\n" +
+                " CheckIn Date: " + myFormat.format(checkInDate) + "\n" +
+                " CheckOut Date: " + myFormat.format(checkOutDate) + "\n}";
     }
 
     @Override

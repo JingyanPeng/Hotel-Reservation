@@ -7,7 +7,7 @@ public class Customer {
     private String lastName;
     private String email;
 
-    private final String emailRegEx = "^(.+)@(.+).com$";
+    private final String emailRegEx = "^(.+)@(.+)[.]com$";
     private final Pattern pattern = Pattern.compile(emailRegEx);
 
     public Customer(String firstName, String lastName, String email){
@@ -33,7 +33,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + firstName + " " + lastName + ", email:'" + email +'}';
+        return "Customer{" + firstName + " " + lastName + ", email: " + email +'}';
     }
 
     @Override

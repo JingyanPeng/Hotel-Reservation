@@ -14,12 +14,16 @@ public class ReservationService {
     }
 
     private List<Reservation> reservations = new ArrayList<Reservation>();
-    public List<Reservation> getReservations(){
+    List<Reservation> getReservations(){
         return reservations;
     }
     private Set<IRoom> rooms = new HashSet<IRoom>();
     public Set<IRoom> getRooms(){
         return rooms;
+    }
+
+    String turnAlarmOn() {
+        return "Turning the alarm on.";
     }
 
     public void addRoom(IRoom room){
@@ -52,6 +56,26 @@ public class ReservationService {
         }
         return roomList;
     }
+    public Collection<IRoom> recommendRooms(Date checkInDate, Date checkOutDate){
+        Calendar checkIn = Calendar.getInstance();
+        Calendar checkOut = Calendar.getInstance();
+        checkIn.setTime(checkInDate);
+        checkOut.setTime(checkOutDate);
+        checkIn.add(Calendar.DAY_OF_MONTH, 7); // add 7 days to original date
+        checkIn.add(Calendar.DAY_OF_MONTH, 7);
+        checkInDate = checkIn.getTime();
+        checkOutDate = checkOut.getTime();
+        Set<IRoom> roomList = new HashSet<IRoom>(rooms);
+        Iterator<Reservation> iterator = reservations.iterator();
+        while(iterator.hasNext()){
+            Reservation res = iterator.next();
+            if (res.getCheckInDate().compareTo(checkOutDate) < 0 && checkInDate.compareTo(res.getCheckOutDate()) < 0){
+                roomList.remove(res.getRoom());
+            }
+        }
+        return roomList;
+    }
+
 
     public Collection<Reservation> getCustomerReservation(Customer customer){
         Collection<Reservation> CustomerReservation = new ArrayList<Reservation>();;

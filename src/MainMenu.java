@@ -104,6 +104,23 @@ public class MainMenu {
         Collection<IRoom> roomList = HotelResource.getInstance().findARoom(inDate, outDate);
         if (roomList.isEmpty()){
             System.out.println("There is no room available");
+            System.out.println("Let's search for recommended rooms");
+            System.out.println("It will add seven days to the original checkin and checkout dates to see the availabilities");
+            Calendar checkIn = Calendar.getInstance();
+            Calendar checkOut = Calendar.getInstance();
+            checkIn.setTime(inDate);
+            checkOut.setTime(outDate);
+            checkIn.add(Calendar.DAY_OF_MONTH, 7); // add 7 days to original date
+            checkOut.add(Calendar.DAY_OF_MONTH, 7);
+            inDate = checkIn.getTime();
+            outDate = checkOut.getTime();
+            SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
+            System.out.println("Recommended CheckIn Date: " + myFormat.format(inDate));
+            System.out.println("Recommended CheckOut Date: " + myFormat.format(outDate));
+            roomList = HotelResource.getInstance().findARoom(inDate, outDate);
+        }
+        if(roomList.isEmpty()){
+            System.out.println("There is no room available");
         }else {
             System.out.println("Rooms available:");
             for(IRoom room : roomList){
@@ -116,8 +133,9 @@ public class MainMenu {
                     String yORn = scanner.nextLine();
                     checkYesOrNoValid(yORn);
                     if (yORn.equalsIgnoreCase("y") || yORn.equalsIgnoreCase("yes")){
-                        makeAReservation(scanner, roomList, inDate, outDate);
-                        keepBooking = false;
+                        if(makeAReservation(scanner, roomList, inDate, outDate)){
+                            keepBooking = false;
+                        }
                     } else if (yORn.equalsIgnoreCase("n") || yORn.equalsIgnoreCase("no")) {
                         System.out.println("Please create an account with us first");
                         keepBooking = false;
@@ -129,10 +147,9 @@ public class MainMenu {
                 }
             }
         }
-
     }
 
-    private static void makeAReservation(Scanner scanner, Collection<IRoom> roomList, Date checkInDate, Date checkOutDate){
+    private static boolean makeAReservation(Scanner scanner, Collection<IRoom> roomList, Date checkInDate, Date checkOutDate){
         boolean validEmail = false;
         String email = "";
         while (!validEmail){
@@ -143,6 +160,7 @@ public class MainMenu {
                 System.out.println("__Check email format__");
             } else if (customerExist == null) {                //email exist (getCustomer != null)
                 System.out.println("__That email doesn't exist__");
+                return false;
             } else{
                 validEmail = true;
             }
@@ -178,6 +196,7 @@ public class MainMenu {
         SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
         System.out.println("CheckIn Date: " + myFormat.format(checkInDate));
         System.out.println("CheckOut Date: " + myFormat.format(checkOutDate));
+        return true;
     }
 
     private static void seeMyReservations(Scanner scanner){
@@ -193,6 +212,7 @@ public class MainMenu {
                 System.out.println("__Check email format__");
             } else if (customerExist == null) {                //email exist (getCustomer != null)
                 System.out.println("__That email doesn't exist__");
+                validEmail = true;
             } else{
                 validEmail = true;
                 for (Reservation myReservation : myReservations) {

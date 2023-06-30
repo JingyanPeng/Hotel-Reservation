@@ -203,7 +203,7 @@ public class AdminMenu {
 
     private static boolean addTestData() {
         if (AdminResource.getInstance().getCustomer("j@gmail.com") != null){
-            System.out.println("You have added some customers, rooms and reservations records. Please do not add records again.");
+            System.out.println("You have added test data. Please do not add records again.");
             return false;
         }
         AdminResource.getInstance().addRoom(new Room("100", 135.0, RoomType.SINGLE));

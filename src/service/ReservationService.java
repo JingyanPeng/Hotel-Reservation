@@ -45,7 +45,7 @@ public class ReservationService {
         reservations.add(new Reservation(customer, room, checkInDate, checkOutDate));
     }
 
-    public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate){
+    public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate,boolean isFree){
         Set<IRoom> roomList = new HashSet<IRoom>(rooms);
         Iterator<Reservation> iterator = reservations.iterator();
         while(iterator.hasNext()){
@@ -54,28 +54,22 @@ public class ReservationService {
                 roomList.remove(res.getRoom());
             }
         }
-        return roomList;
-    }
-    public Collection<IRoom> recommendRooms(Date checkInDate, Date checkOutDate){
-        Calendar checkIn = Calendar.getInstance();
-        Calendar checkOut = Calendar.getInstance();
-        checkIn.setTime(checkInDate);
-        checkOut.setTime(checkOutDate);
-        checkIn.add(Calendar.DAY_OF_MONTH, 7); // add 7 days to original date
-        checkIn.add(Calendar.DAY_OF_MONTH, 7);
-        checkInDate = checkIn.getTime();
-        checkOutDate = checkOut.getTime();
-        Set<IRoom> roomList = new HashSet<IRoom>(rooms);
-        Iterator<Reservation> iterator = reservations.iterator();
-        while(iterator.hasNext()){
-            Reservation res = iterator.next();
-            if (res.getCheckInDate().compareTo(checkOutDate) < 0 && checkInDate.compareTo(res.getCheckOutDate()) < 0){
-                roomList.remove(res.getRoom());
+        Set<IRoom> allRoomList = new HashSet<IRoom>(rooms);
+        if(isFree){ // free
+            for(IRoom room : allRoomList){
+                if(!room.isFree()){
+                    roomList.remove(room);
+                }
+            }
+        }else { // paid
+            for(IRoom room : allRoomList){
+                if(room.isFree()){
+                    roomList.remove(room);
+                }
             }
         }
         return roomList;
     }
-
 
     public Collection<Reservation> getCustomerReservation(Customer customer){
         Collection<Reservation> CustomerReservation = new ArrayList<Reservation>();;
@@ -100,10 +94,5 @@ public class ReservationService {
             System.out.println("There is no reservation");
         }
     }
-
-
-
-
-
 
 }

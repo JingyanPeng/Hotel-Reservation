@@ -1,7 +1,4 @@
-import model.Customer;
-import model.IRoom;
-import model.Room;
-import model.RoomType;
+import model.*;
 import api.AdminResource;
 import api.HotelResource;
 
@@ -86,7 +83,8 @@ public class AdminMenu {
     }
 
     //Check the valid input
-    private static void checkYesOrNoValid(String string){
+    //default can be accessed within the package
+    static void checkYesOrNoValid(String string){
         if(!( string.equalsIgnoreCase("y") || string.equalsIgnoreCase("n") || string.equalsIgnoreCase("yes") || string.equalsIgnoreCase("no"))){
             throw new InputMismatchException("__Please enter y (Yes) or n (No)__");
         }
@@ -192,20 +190,26 @@ public class AdminMenu {
             }
         }
 
-        //Create room
-        Room newRoom = new Room(roomNumber, roomPrice, roomType);
-        AdminResource.getInstance().addRoom(newRoom);
+        if(roomPrice!=0){
+            //Create room
+            Room newRoom1 = new Room(roomNumber, roomPrice, roomType);
+            AdminResource.getInstance().addRoom(newRoom1);
+        }else {
+            Room newRoom2 = new FreeRoom(roomNumber, roomPrice, roomType);
+            AdminResource.getInstance().addRoom(newRoom2);
+        }
+
     }
 
     private static boolean addTestData() {
         if (AdminResource.getInstance().getCustomer("j@gmail.com") != null){
-            System.out.println("You have added some customers, rooms and reservations records. Please do not add records twice.");
+            System.out.println("You have added some customers, rooms and reservations records. Please do not add records again.");
             return false;
         }
         AdminResource.getInstance().addRoom(new Room("100", 135.0, RoomType.SINGLE));
         AdminResource.getInstance().addRoom(new Room("200", 125.0, RoomType.DOUBLE));
-        AdminResource.getInstance().addRoom(new Room("300", 150.0, RoomType.SINGLE));
-        AdminResource.getInstance().addRoom(new Room("400", 125.0, RoomType.DOUBLE));
+        AdminResource.getInstance().addRoom(new FreeRoom("300", 150.0, RoomType.SINGLE));
+        AdminResource.getInstance().addRoom(new FreeRoom("400", 125.0, RoomType.DOUBLE));
 
         HotelResource.getInstance().createACustomer("j@gmail.com", "jenny", "floyd");
         HotelResource.getInstance().createACustomer("k@gmail.com", "katrina", "kai");

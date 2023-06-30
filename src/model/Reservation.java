@@ -53,7 +53,7 @@ public class Reservation {
     public String toString() {
         SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
         return "Reservation\n" +
-                "{\n" + customer + "\n" +
+                "{\n " + customer + "\n" +
                 " " + room + "\n" +
                 " CheckIn Date: " + myFormat.format(checkInDate) + "\n" +
                 " CheckOut Date: " + myFormat.format(checkOutDate) + "\n}";

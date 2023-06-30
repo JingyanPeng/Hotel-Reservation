@@ -7,6 +7,6 @@ public class FreeRoom extends Room{
 
     @Override
     public String toString() {
-        return "__FREEROOM__" + super.toString();
+        return "Free" + super.toString();
     }
 }

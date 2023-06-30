@@ -38,7 +38,7 @@ public class HotelResource {
         return ReservationService.getInstance().getCustomerReservation(customer);
     }
 
-    public Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate){
-        return ReservationService.getInstance().findRooms(checkInDate, checkOutDate);
+    public Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate,boolean isFree){
+        return ReservationService.getInstance().findRooms(checkInDate, checkOutDate, isFree);
     }
 }

@@ -53,11 +53,11 @@ public class MainMenu {
         return pattern.matcher(email).matches();
     }
 
-    private static void checkYesOrNoValid(String string){
-        if(!( string.equalsIgnoreCase("y") || string.equalsIgnoreCase("n") || string.equalsIgnoreCase("yes") || string.equalsIgnoreCase("no"))){
-            throw new InputMismatchException("__Please enter y (Yes) or n (No)__");
-        }
-    }
+//    private static void checkYesOrNoValid(String string){
+//        if(!( string.equalsIgnoreCase("y") || string.equalsIgnoreCase("n") || string.equalsIgnoreCase("yes") || string.equalsIgnoreCase("no"))){
+//            throw new InputMismatchException("__Please enter y (Yes) or n (No)__");
+//        }
+//    }
 
     private static int[] convertStringToIntArray(String formatDate){
         String[] strArray = formatDate.split("/");
@@ -100,8 +100,26 @@ public class MainMenu {
         }
         Date inDate = checkInDate.getTime();
         Date outDate = checkOutDate.getTime();
+        boolean askingFree = false;
+        boolean isFree = true;
+        while (!askingFree){
+            System.out.println("Do you want a free room or paid room? y/n");
+            System.out.println("yes for free room, no for paid room");
+            try{
+                String yORn = scanner.nextLine();
+                AdminMenu.checkYesOrNoValid(yORn);
+                if (yORn.equalsIgnoreCase("y") || yORn.equalsIgnoreCase("yes")){
+                    isFree = true;
+                } else {
+                    isFree = false;
+                }
+                askingFree = true;
+            }catch (InputMismatchException ex){
+                System.out.println(ex.getLocalizedMessage());
+            }
+        }
 
-        Collection<IRoom> roomList = HotelResource.getInstance().findARoom(inDate, outDate);
+        Collection<IRoom> roomList = HotelResource.getInstance().findARoom(inDate, outDate, isFree);
         if (roomList.isEmpty()){
             System.out.println("There is no room available");
             System.out.println("Let's search for recommended rooms");
@@ -117,7 +135,7 @@ public class MainMenu {
             SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
             System.out.println("Recommended CheckIn Date: " + myFormat.format(inDate));
             System.out.println("Recommended CheckOut Date: " + myFormat.format(outDate));
-            roomList = HotelResource.getInstance().findARoom(inDate, outDate);
+            roomList = HotelResource.getInstance().findARoom(inDate, outDate, isFree);
         }
         if(roomList.isEmpty()){
             System.out.println("There is no room available");
@@ -131,7 +149,7 @@ public class MainMenu {
                 System.out.println("Do you have an account with us? y/n");
                 try{
                     String yORn = scanner.nextLine();
-                    checkYesOrNoValid(yORn);
+                    AdminMenu.checkYesOrNoValid(yORn);
                     if (yORn.equalsIgnoreCase("y") || yORn.equalsIgnoreCase("yes")){
                         if(makeAReservation(scanner, roomList, inDate, outDate)){
                             keepBooking = false;

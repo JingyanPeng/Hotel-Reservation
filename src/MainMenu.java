@@ -123,19 +123,23 @@ public class MainMenu {
         if (roomList.isEmpty()){
             System.out.println("There is no room available");
             System.out.println("Let's search for recommended rooms");
-            System.out.println("It will add seven days to the original checkin and checkout dates to see the availabilities");
+            System.out.println("It will add at most seven days to the original checkin and checkout dates to see the availabilities");
             Calendar checkIn = Calendar.getInstance();
             Calendar checkOut = Calendar.getInstance();
             checkIn.setTime(inDate);
             checkOut.setTime(outDate);
-            checkIn.add(Calendar.DAY_OF_MONTH, 7); // add 7 days to original date
-            checkOut.add(Calendar.DAY_OF_MONTH, 7);
-            inDate = checkIn.getTime();
-            outDate = checkOut.getTime();
             SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
+            int i = 0;
+            while (i < 7 && roomList.isEmpty()){
+                checkIn.add(Calendar.DAY_OF_MONTH, 1); // add 7 days to original date
+                checkOut.add(Calendar.DAY_OF_MONTH, 1);
+                inDate = checkIn.getTime();
+                outDate = checkOut.getTime();
+                roomList.addAll(HotelResource.getInstance().findARoom(inDate, outDate, isFree));
+                i ++;
+            }
             System.out.println("Recommended CheckIn Date: " + myFormat.format(inDate));
             System.out.println("Recommended CheckOut Date: " + myFormat.format(outDate));
-            roomList = HotelResource.getInstance().findARoom(inDate, outDate, isFree);
         }
         if(roomList.isEmpty()){
             System.out.println("There is no room available");

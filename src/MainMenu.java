@@ -137,13 +137,15 @@ public class MainMenu {
                 roomList.addAll(HotelResource.getInstance().findARoom(inDate, outDate, isFree));
                 i ++;
             }
+            if(!roomList.isEmpty()){
+                SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
+                System.out.println("Recommended CheckIn Date: " + myFormat.format(inDate));
+                System.out.println("Recommended CheckOut Date: " + myFormat.format(outDate));
+            }
         }
         if(roomList.isEmpty()){
             System.out.println("There is no room available");
         }else {
-            SimpleDateFormat myFormat = new SimpleDateFormat("E MMM dd yyyy");
-            System.out.println("Recommended CheckIn Date: " + myFormat.format(inDate));
-            System.out.println("Recommended CheckOut Date: " + myFormat.format(outDate));
             System.out.println("Rooms available:");
             for(IRoom room : roomList){
                 System.out.println(room.toString());

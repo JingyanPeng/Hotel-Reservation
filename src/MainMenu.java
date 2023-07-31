@@ -128,6 +128,7 @@ public class MainMenu {
             Calendar checkOut = Calendar.getInstance();
             checkIn.setTime(inDate);
             checkOut.setTime(outDate);
+            //using while loop to check recommended rooms day by day
             int i = 0;
             while (i < 7 && roomList.isEmpty()){
                 checkIn.add(Calendar.DAY_OF_MONTH, 1); // add 7 days to original date

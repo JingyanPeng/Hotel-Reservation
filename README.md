@@ -1,3 +1,2 @@
 # HotelReservation
-
-This is an app built in Java to refresh java fundamentals for me.
+This is an Hotel Reservation Application built in Java
